@@ -1,0 +1,48 @@
+import React from 'react';
+import {
+  TextInput,
+  Text,
+  View,
+  StyleSheet,
+  KeyboardTypeOptions,
+} from 'react-native';
+
+type CustomTextFieldProps = {
+  label: string;
+  value: string;
+  onChangeText: (text: string) => void;
+  secureTextEntry?: boolean;
+  keyboardType?: KeyboardTypeOptions;
+  error?: string;
+  useFormField?: boolean;
+};
+
+export const CustomTextField: React.FC<CustomTextFieldProps> = ({
+  label,
+  value,
+  onChangeText,
+  secureTextEntry = false,
+  keyboardType = 'default',
+  error,
+  useFormField = true,
+}) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.label}>{label}</Text>
+
+      <TextInput
+        style={[styles.input, error && styles.inputError]}
+        value={value}
+        onChangeText={onChangeText}
+        secureTextEntry={secureTextEntry}
+        keyboardType={keyboardType}
+        placeholder={label}
+        autoCapitalize="none"
+      />
+
+      {useFormField && error ? (
+        <Text style={styles.errorText}>{error}</Text>
+      ) : null}
+    </View>
+  );
+};
