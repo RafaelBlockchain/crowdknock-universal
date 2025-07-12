@@ -1,3 +1,4 @@
+// frontend-app/src/features/challenges/screens/ChallengesScreen.tsx
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
