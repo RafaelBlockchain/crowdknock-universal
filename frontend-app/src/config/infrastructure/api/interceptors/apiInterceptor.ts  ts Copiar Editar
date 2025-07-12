@@ -1,0 +1,22 @@
+import axios, { AxiosError } from 'axios';
+
+export const apiInterceptor = (axiosInstance: ReturnType<typeof axios.create>) => {
+  axiosInstance.interceptors.response.use(
+    response => response,
+    (error: AxiosError) => {
+      if (error.response?.status === 401) {
+        // Token inválido → cerrar sesión
+        console.log('Sesión expirada. Redirigiendo al login...');
+        // TODO: Agregar lógica para cerrar sesión y redirigir
+      }
+
+      if (error.code === 'ECONNABORTED') {
+        // Mostrar mensaje de red lenta
+        console.warn('La conexión ha tardado demasiado. Revisa tu red.');
+        // TODO: Mostrar notificación en UI si es necesario
+      }
+
+      return Promise.reject(error);
+    }
+  );
+};
